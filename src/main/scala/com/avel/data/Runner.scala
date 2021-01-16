@@ -16,9 +16,11 @@ object Runner extends App {
     .config(conf)
     .getOrCreate()
 
-  val df = spark.read.csv("/data/binace-crypto-klines/datasets/*")
+  val df = spark.read.csv("hdfs://delta.avel.local:9000/data/binace-crypto-klines/datasets/01-2018/01-2018")
 
   val count = df.count()
+
+  println(count)
 
   spark.close()
 
