@@ -13,5 +13,18 @@ firewall-cmd --zone=public --permanent --add-port=8080/tcp
 firewall-cmd --zone=public --permanent --add-port=7077/tcp
 firewall-cmd --zone=public --permanent --add-port=8081/tcp
 
-firewall-cmd --zone=public --permanent --add-port=34132/tcp
+
+firewall-cmd --zone=public --permanent --remove-port=34132/tcp
+firewall-cmd --zone=public --permanent --remove-port=33682/tcp
+firewall-cmd --zone=public --permanent --remove-port=36498/tcp
+firewall-cmd --zone=public --permanent --remove-port=45788/tcp
+firewall-cmd --zone=public --permanent --remove-port=38066/tcp
+
+firewall-cmd --zone=public --permanent --add-port=38000/tcp
+firewall-cmd --zone=public --permanent --add-port=38010/tcp
+
+firewall-cmd --zone=public --permanent --add-port=51000/tcp
+firewall-cmd --zone=public --permanent --add-port=51815/tcp
+firewall-cmd --zone=public --permanent --add-port=51800/tcp
+firewall-cmd --zone=public --permanent --add-port=51810/tcp
 firewall-cmd --reload
