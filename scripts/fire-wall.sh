@@ -27,4 +27,8 @@ firewall-cmd --zone=public --permanent --add-port=51000/tcp
 firewall-cmd --zone=public --permanent --add-port=51815/tcp
 firewall-cmd --zone=public --permanent --add-port=51800/tcp
 firewall-cmd --zone=public --permanent --add-port=51810/tcp
+
+firewall-cmd --zone=public --permanent --add-port=4040/tcp
+# History Server
+firewall-cmd --zone=public --permanent --add-port=18080/tcp
 firewall-cmd --reload

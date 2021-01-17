@@ -21,6 +21,8 @@ object Runner extends App {
     .set("spark.broadcast.port", "51815")
     .set("spark.blockManager.port", "51800")
     .set("spark.executor.port", "51810")
+    .set("spark.eventLog.enabled", "true")
+    .set("spark.eventLog.dir", "hdfs://delta.avel.local:9000/history-server/spark-logs")
 
   //    .set("spark.dynamicAllocation.enabled", "true")
 //    .set("spark.executor.cores", "*")
