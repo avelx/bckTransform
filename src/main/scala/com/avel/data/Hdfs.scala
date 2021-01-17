@@ -2,10 +2,19 @@ package com.avel.data
 
 import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.hadoop.conf._
+import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
-object Upload extends App {
+object Hdfs extends App {
 
   import org.apache.hadoop.fs.FileSystem
+
+//  def upload(srcFileName: String, dstFileName: String)(implicit conf: Configuration) : Future[_] = {
+//    Future {
+//      val fs = FileSystem.get(conf)
+//      fs.copyFromLocalFile(new Path(srcFileName), new Path(dstFileName))
+//    }
+//  }
 
   val conf = new Configuration
   conf.set("fs.defaultFS", "hdfs://delta.avel.local:9000")

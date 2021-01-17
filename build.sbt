@@ -13,9 +13,6 @@ libraryDependencies += "com.github.pureconfig" %% "pureconfig" % "0.14.0"
 mainClass in assembly := Some("com.avel.data.Runner")
 
 assemblyOutputPath := {
-//  val path = artifactPath.in(packageBin).in(Compile).value
-//  streams.value.log.info(path.toPath.toString)
-//  path
   new File("/Users/pavel/devcore/playground/bckTransform")
 }
 assemblyJarName in assembly := "bck-transform.jar"
