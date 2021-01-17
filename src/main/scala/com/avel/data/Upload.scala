@@ -12,7 +12,7 @@ object Upload extends App {
   val fs = FileSystem.get(conf)
 
   fs.copyFromLocalFile(
-    new Path("/Users/pavel/devcore/playground/bckTransform/README.md"),
-    new Path("hdfs://delta.avel.local:9000/data/README.md")
+    new Path("/Users/pavel/devcore/playground/bckTransform/target/scala-2.12/bck-transform.jar"),
+    new Path("/artifacts/bck-transform.jar")
   )
 }
