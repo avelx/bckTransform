@@ -1,6 +1,6 @@
 package com.avel.data
 
-import com.avel.data.model.Record
+import com.avel.data.model.{Record, Record2}
 import org.apache.spark.sql.functions.col
 
 import scala.util.Random
@@ -12,12 +12,10 @@ object Runner extends App {
   import org.apache.spark.sql.SparkSession
 
   val conf = new SparkConf()
-    .setMaster("spark://alpha.avel.local:7077")
+  .setMaster("spark://gamma.avel.local:7077")
 //    .setMaster("local[*]")
-    .setAppName("Runner")
+    .setAppName("DataRePatitioner")
     .set("spark.driver.port", "51000")
-//    .set("spark.fileserver.port", "51811")
-    //    .set("spark.replClassServer.port", "51813")
     .set("spark.broadcast.port", "51815")
     .set("spark.blockManager.port", "51800")
     .set("spark.executor.port", "51810")
@@ -31,30 +29,32 @@ object Runner extends App {
 
   val spark = SparkSession
     .builder()
-    .appName("RePartitionJob")
     .config(conf)
     .getOrCreate()
 
   val dates = List("01-2018", "02-2018", "03-2018", "11-2017", "12-2017")
 
   import spark.implicits._
+  import com.avel.data.data.Func._
 
-  val ds = spark
-    .read
-    .option("header", "true")
-    .csv("hdfs://delta.avel.local:9000/data/binace-crypto-klines/datasets/01-2018/01-2018/ADABTC.csv")
-    .as[Record]
+  dates.foreach(date => {
 
-  ds
-    .repartition( col("Open_time") )
-    .write
-    .parquet(s"hdfs://delta.avel.local:9000/dataStore/${Random.alphanumeric.take(5).toList.mkString("")}-res-ABC")
+    val ds = spark
+      .read
+      .option("header", "true")
+      .csv(s"hdfs://delta.avel.local:9000/data/binace-crypto-klines/datasets/$date/$date/")
+      .as[Record]
 
-//  val res = list.toDF()
-//  res.coalesce(1)
-//    .write
-//    .csv(s"hdfs://delta.avel.local:9000/data/" +
-//      s"${Random.alphanumeric.take(5).toList.mkString("")}result.csv")
+    val dsEnhanced = ds
+      .map(add_hour)
+      .as[Record2]
+
+    val batchId = Random.alphanumeric.take(5).mkString("")
+    dsEnhanced
+      .repartition( col("Hour") )
+      .write
+      .json(s"hdfs://delta.avel.local:9000/dataStore/json/$date/$batchId")
+  })
 
   spark.close()
 

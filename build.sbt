@@ -5,10 +5,10 @@ version := "0.1"
 scalaVersion := "2.12.10"
 
 libraryDependencies += "org.apache.spark" %% "spark-sql" % "3.0.1"
-
 libraryDependencies += "org.apache.hadoop" % "hadoop-hdfs" % "2.4.0"
-
 libraryDependencies += "com.github.pureconfig" %% "pureconfig" % "0.14.0"
+libraryDependencies += "com.github.ywilkof" % "spark-jobs-rest-client" % "1.3.9"
+
 
 mainClass in assembly := Some("com.avel.data.Runner")
 
